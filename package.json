@@ -3,12 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --hostname 0.0.0.0",
+    "dev": "npx convex dev & next dev --hostname 0.0.0.0",
+    "dev:frontend": "next dev --hostname 0.0.0.0",
+    "dev:backend": "npx convex dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
   },
   "dependencies": {
+    "@radix-ui/react-dialog": "^1.1.15",
     "@radix-ui/react-slot": "^1.2.4",
     "better-sqlite3": "^12.6.2",
     "class-variance-authority": "^0.7.1",
