@@ -1,15 +1,16 @@
 "use client";
 
-import { useQuery } from "convex/react";
-import { api } from "../../convex/_generated/api";
-import { Users, Bot, Code, PenTool, Search, Cpu } from "lucide-react";
+import { useOpenClawQuery } from "@/lib/hooks/use-openclaw-query";
+import type { Agent } from "@/lib/openclaw/types";
+import { Users, Bot, Code, PenTool, Search, Cpu, Sparkles } from "lucide-react";
 
 const roleIcons: Record<string, typeof Bot> = {
   main: Bot, developer: Code, writer: PenTool, researcher: Search, specialist: Cpu,
+  "Primary LLM": Sparkles, "Fallback LLM": Cpu,
 };
 
 export function TeamStructure() {
-  const agents = useQuery(api.tasks.getAgents);
+  const agents = useOpenClawQuery<Agent[]>("/api/openclaw/agents");
 
   const getStatusColor = (status: string) => {
     switch (status) {

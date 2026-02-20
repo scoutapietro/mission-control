@@ -2,13 +2,15 @@
 
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
+import { useOpenClawQuery } from "@/lib/hooks/use-openclaw-query";
+import type { ScheduledJob, Agent } from "@/lib/openclaw/types";
 import { CheckSquare, Clapperboard, Calendar as CalendarIcon, Users } from "lucide-react";
 
 export function StatsBar() {
   const tasks = useQuery(api.tasks.getTasks);
   const contentItems = useQuery(api.tasks.getContentItems);
-  const scheduledJobs = useQuery(api.tasks.getScheduledJobs);
-  const agents = useQuery(api.tasks.getAgents);
+  const scheduledJobs = useOpenClawQuery<ScheduledJob[]>("/api/openclaw/jobs");
+  const agents = useOpenClawQuery<Agent[]>("/api/openclaw/agents");
 
   const stats = [
     {
