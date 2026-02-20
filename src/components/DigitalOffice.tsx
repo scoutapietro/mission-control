@@ -1,11 +1,11 @@
 "use client";
 
-import { useQuery } from "convex/react";
-import { api } from "../../convex/_generated/api";
+import { useOpenClawQuery } from "@/lib/hooks/use-openclaw-query";
+import type { Agent } from "@/lib/openclaw/types";
 import { Monitor, Coffee, Clock, Activity } from "lucide-react";
 
 export function DigitalOffice() {
-  const agents = useQuery(api.tasks.getAgents);
+  const agents = useOpenClawQuery<Agent[]>("/api/openclaw/agents");
 
   const getStatusDisplay = (status: string) => {
     switch (status) {

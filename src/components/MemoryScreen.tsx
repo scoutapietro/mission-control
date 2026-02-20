@@ -1,13 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { useQuery } from "convex/react";
-import { api } from "../../convex/_generated/api";
+import { useOpenClawQuery } from "@/lib/hooks/use-openclaw-query";
+import type { Memory } from "@/lib/openclaw/types";
 import { Search, Brain, Clock, Tag } from "lucide-react";
 
 export function MemoryScreen() {
   const [searchQuery, setSearchQuery] = useState("");
-  const memories = useQuery(api.tasks.getMemories);
+  const memories = useOpenClawQuery<Memory[]>("/api/openclaw/memories");
 
   const filteredMemories = (memories ?? []).filter((m) =>
     !searchQuery ||
