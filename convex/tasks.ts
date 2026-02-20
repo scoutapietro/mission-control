@@ -97,6 +97,37 @@ export const createContentItem = mutation({
   },
 });
 
+export const updateContentItem = mutation({
+  args: {
+    itemId: v.id("contentItems"),
+    title: v.string(),
+    type: v.union(v.literal("video"), v.literal("blog")),
+    stage: v.union(
+      v.literal("idea"),
+      v.literal("script"),
+      v.literal("thumbnail"),
+      v.literal("filming"),
+      v.literal("published")
+    ),
+    script: v.optional(v.string()),
+    thumbnailUrl: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    const { itemId, ...fields } = args;
+    await ctx.db.patch(itemId, {
+      ...fields,
+      updatedAt: Date.now(),
+    });
+  },
+});
+
+export const deleteContentItem = mutation({
+  args: { itemId: v.id("contentItems") },
+  handler: async (ctx, args) => {
+    await ctx.db.delete(args.itemId);
+  },
+});
+
 export const advanceContentStage = mutation({
   args: { itemId: v.id("contentItems") },
   handler: async (ctx, args) => {
