@@ -48,6 +48,31 @@ export const updateTaskStatus = mutation({
   },
 });
 
+export const updateTask = mutation({
+  args: {
+    taskId: v.id("tasks"),
+    title: v.string(),
+    description: v.optional(v.string()),
+    status: v.union(v.literal("backlog"), v.literal("in_progress"), v.literal("done")),
+    assignee: v.union(v.literal("me"), v.literal("scout")),
+    priority: v.union(v.literal("low"), v.literal("medium"), v.literal("high")),
+  },
+  handler: async (ctx, args) => {
+    const { taskId, ...fields } = args;
+    await ctx.db.patch(taskId, {
+      ...fields,
+      updatedAt: Date.now(),
+    });
+  },
+});
+
+export const deleteTask = mutation({
+  args: { taskId: v.id("tasks") },
+  handler: async (ctx, args) => {
+    await ctx.db.delete(args.taskId);
+  },
+});
+
 // Content Pipeline
 export const getContentItems = query({
   args: {},
