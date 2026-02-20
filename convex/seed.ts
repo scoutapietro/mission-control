@@ -197,7 +197,7 @@ export default mutation({
       ctx.db.insert("agents", {
         name: "Scout",
         role: "Main Agent",
-        avatar: "/avatars/scout.jpg",
+        avatar: "🐕",
         status: "active",
         description: "Primary AI agent responsible for task coordination, user interaction, and system management.",
         responsibilities: [
@@ -211,7 +211,7 @@ export default mutation({
       ctx.db.insert("agents", {
         name: "Developer",
         role: "Development Agent",
-        avatar: "/avatars/dev.jpg",
+        avatar: "👨‍💻",
         status: "active",
         description: "Specialized in code development, debugging, and technical implementation tasks.",
         responsibilities: [
@@ -225,7 +225,7 @@ export default mutation({
       ctx.db.insert("agents", {
         name: "Writer",
         role: "Content Agent",
-        avatar: "/avatars/writer.jpg",
+        avatar: "✍️",
         status: "idle",
         description: "Focused on content creation, documentation, and communication tasks.",
         responsibilities: [
@@ -239,7 +239,7 @@ export default mutation({
       ctx.db.insert("agents", {
         name: "Researcher",
         role: "Research Agent",
-        avatar: "/avatars/researcher.jpg",
+        avatar: "🔍",
         status: "idle",
         description: "Handles research tasks, data analysis, and information gathering.",
         responsibilities: [
