@@ -38,7 +38,7 @@ export function TeamStructure() {
     );
   }
 
-  const mainAgent = agents.find((a) => a.role === "main") ?? agents[0];
+  const mainAgent = agents.find((a) => a.role.toLowerCase().includes("main")) ?? agents[0];
   const subAgents = agents.filter((a) => a._id !== mainAgent?._id);
 
   if (!mainAgent) {
