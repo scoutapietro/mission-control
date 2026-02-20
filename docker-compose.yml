@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  convex:
+    image: node:18-alpine
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./convex:/app/convex
+      - ./package.json:/app/package.json
+      - ./package-lock.json:/app/package-lock.json
+    working_dir: /app
+    command: >
+      sh -c "
+        if [ ! -d node_modules ]; then npm install; fi &&
+        npx convex dev --url http://localhost:3001
+      "
+    environment:
+      - NODE_ENV=development
+      - CONVEX_SITE_URL=http://localhost:3000
+    networks:
+      - mission-control
+
+  app:
+    image: node:18-alpine
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    working_dir: /app
+    command: >
+      sh -c "
+        if [ ! -d node_modules ]; then npm install; fi &&
+        npm run dev
+      "
+    environment:
+      - NODE_ENV=development
+      - NEXT_PUBLIC_CONVEX_URL=http://localhost:3001
+    networks:
+      - mission-control
+    depends_on:
+      - convex
+
+networks:
+  mission-control:
+    driver: bridge
+
+volumes:
+  node_modules:
+  next_cache:
