@@ -78,7 +78,7 @@ export const advanceContentStage = mutation({
     const item = await ctx.db.get(args.itemId);
     if (!item) return;
     
-    const stages = ["idea", "script", "thumbnail", "filming", "published"];
+    const stages = ["idea", "script", "thumbnail", "filming", "published"] as const;
     const currentIndex = stages.indexOf(item.stage);
     if (currentIndex < stages.length - 1) {
       await ctx.db.patch(args.itemId, {
